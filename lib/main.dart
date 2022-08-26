@@ -64,9 +64,9 @@ class MyHomePage extends StatelessWidget {
                       ),
                     ),
                     child: Text(
-                      tx.amount.toString(),
+                      "Rs."+tx.amount.toString(),
                       style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15,color: Colors.red),
                       textAlign: TextAlign.center,
                     ),
                   ),
