@@ -1,8 +1,8 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
-import 'package:hisab_kitab/transacation.dart';
-import './transacation.dart';
+import 'package:hisab_kitab/Module/transacation.dart';
+import 'package:hisab_kitab/Widget/user_transaction.dart';
+
+import 'package:intl/intl.dart';
 
 void main() {
   runApp(MyHisab());
@@ -18,12 +18,9 @@ class MyHisab extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
-  final List<Transaction> transacation = [
-    Transaction(
-        id: "t1", title: "New Shoes", amount: 99.99, date: DateTime.now()),
-    Transaction(
-        id: "t2", title: "New Bottel", amount: 20.99, date: DateTime.now()),
-  ];
+  // String? titleInput;
+  // String? amountInput;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,65 +28,37 @@ class MyHomePage extends StatelessWidget {
         title: Text(
           "Hisab Kitab",
         ),
-        centerTitle: true,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () => {},
+          )
+        ],
       ),
-      body: Column(children: <Widget>[
-        Card(
-         
-          child: Container(
-            width: double.infinity,
-            height: 200,
-            child: Text(
-              "Chart",
-              style: TextStyle(
-                color: Colors.blue ,
-              ),
-            ),
-          ),
-          elevation: 30,
-        ),
-        Column(
-          children: transacation.map((tx) {
-            return Card(
-              elevation: 30,
-              
-              child: Row(
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.all(10),
-                    margin: EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        width: 2,
-                      ),
-                    ),
-                    child: Text(
-                      "Rs."+tx.amount.toString(),
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15,color: Colors.red),
-                      textAlign: TextAlign.center,
+      body: SingleChildScrollView(
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Card(
+                child: Container(
+                  width: double.infinity,
+                  child: Text(
+                    "Chart",
+                    style: TextStyle(
+                      color: Colors.blue,
                     ),
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                    Text(
-                      tx.title,
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                      textAlign: TextAlign.center,
-                    ),
-                    Text(tx.date.toString(),
-                    style: TextStyle(fontSize: 10),)
-
-                    
-                  ])
-                ],
+                ),
+                elevation: 30,
               ),
-            );
-          }).toList(),
-        )
-      ]),
+              UserTranaction()
+            ]),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: (() {}),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
