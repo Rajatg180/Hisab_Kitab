@@ -21,46 +21,49 @@ class TransactionList extends StatelessWidget {
         : ListView.builder(
           //create widget
           itemBuilder: (context, index) {
-            return Card(
-              elevation: 10,
-              child: Row(
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.all(10),
-                    margin: EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      border: Border.all(
+            return Container(
+              margin: EdgeInsets.symmetric(horizontal: 10),
+              child: Card(
+                elevation: 10,
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      padding: EdgeInsets.all(10),
+                      margin: EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        border: Border.all(
 
-                        //color: Theme.of(context).primaryColor,
-                        width: 2,
+                          //color: Theme.of(context).primaryColor,
+                          width: 2,
+                        ),
+                      ),
+                      child: Text(
+                        //only display two decimal point
+                        "Rs." + transacations[index].amount.toStringAsFixed(2),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
+                            color: Colors.red),
+                        textAlign: TextAlign.center,
                       ),
                     ),
-                    child: Text(
-                      //only display two decimal point
-                      "Rs." + transacations[index].amount.toStringAsFixed(2),
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                          color: Colors.red),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          transacations[index].title,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20),
-                          textAlign: TextAlign.center,
-                        ),
-                        //formating date
-                        Text(
-                          DateFormat.yMMMd().format(transacations[index].date),
-                          style: TextStyle(fontSize: 13),
-                        )
-                      ])
-                ],
+                    Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            transacations[index].title,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 20),
+                            textAlign: TextAlign.center,
+                          ),
+                          //formating date
+                          Text(
+                            DateFormat.yMMMd().format(transacations[index].date),
+                            style: TextStyle(fontSize: 13),
+                          )
+                        ])
+                  ],
+                ),
               ),
             );
           },

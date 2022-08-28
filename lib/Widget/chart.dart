@@ -33,15 +33,14 @@ class Chart extends StatelessWidget {
     return Card(margin: EdgeInsets.all(15),
       
       elevation: 6,
-      child: Container(padding: EdgeInsets.all(5),
-      child : Row(
-        
+      child:  Row(
+        mainAxisAlignment:MainAxisAlignment.spaceEvenly,
         children: groupedTransactionValues.map((data) {
           //SizedBox(width: 10,);
           return ChartBar(data['day'], data['amount'],totalSpending==0.0?0.0:(data['amount'] as double)/totalSpending);
         }).toList(), 
       ),
-      )
+      
     );
   }
 }
