@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../Module/transacation.dart';
-import './user_transaction.dart';
+
 import 'package:intl/intl.dart';
 
 class TransactionList extends StatelessWidget {
@@ -10,12 +10,19 @@ class TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 500,
-        child: ListView.builder(
+        height: 600,
+        child: transacations.isEmpty ?Column(mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+          Text("No transaction added yet !",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.brown,fontSize: 20),),
+          //SizedBox() is used to add spacing betwwen two widget
+          //SizedBox(height: 20,),
+          Image.asset('assets/images.jpg')
+        ],)
+        : ListView.builder(
           //create widget
           itemBuilder: (context, index) {
             return Card(
-              elevation: 30,
+              elevation: 10,
               child: Row(
                 children: <Widget>[
                   Container(
@@ -23,6 +30,8 @@ class TransactionList extends StatelessWidget {
                     margin: EdgeInsets.all(20),
                     decoration: BoxDecoration(
                       border: Border.all(
+
+                        //color: Theme.of(context).primaryColor,
                         width: 2,
                       ),
                     ),

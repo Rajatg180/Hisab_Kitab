@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:hisab_kitab/Widget/user_transaction.dart';
 
-class NewTransaction extends StatelessWidget {
+class NewTransaction extends StatefulWidget {
+ 
   final Function addTx;
-  final titleController = TextEditingController();
-  final amountController = TextEditingController();
   NewTransaction(this.addTx);
 
+  @override
+  State<NewTransaction> createState() => _NewTransactionState();
+}
+
+class _NewTransactionState extends State<NewTransaction> {
+  final titleController = TextEditingController();
+  final amountController = TextEditingController();
+ 
   void submitted() {
     final enteredTitle = titleController.text;
     final enteredAmount = double.parse(amountController.text);
@@ -14,13 +20,15 @@ class NewTransaction extends StatelessWidget {
     if (enteredTitle.isEmpty || enteredAmount <= 0) {
       return;
     }
-    addTx(titleController.text, double.parse(amountController.text));
+    //accesing the property of NewTransaction class using widget.
+    widget.addTx(titleController.text, double.parse(amountController.text));
+    Navigator.of(context).pop(); 
   }
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-        elevation: 30,
+    return  Card(
+        elevation: 10,
         child: Container(
             padding: EdgeInsets.all(20),
             child: Column(
@@ -51,7 +59,7 @@ class NewTransaction extends StatelessWidget {
                     child: Text(
                       "Add Transaction",
                     ),
-                    textColor: Colors.blue,
+                    textColor: Colors.orange,
                   )
                 ])));
   }

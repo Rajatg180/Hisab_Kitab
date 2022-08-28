@@ -1,62 +1,105 @@
 import 'package:flutter/material.dart';
 import 'package:hisab_kitab/Module/transacation.dart';
-import 'package:hisab_kitab/Widget/user_transaction.dart';
-
-import 'package:intl/intl.dart';
+import 'package:hisab_kitab/Widget/new_transaction.dart';
+import 'package:hisab_kitab/Widget/transactionList.dart';
+import './Module/transacation.dart';
+import './Widget/chart.dart';
 
 void main() {
-  runApp(MyHisab());
+  runApp(const MyApp());
 }
 
-class MyHisab extends StatelessWidget {
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(primarySwatch: Colors.orange,
+      accentColor: Colors.orange ),
+      title: 'Hisab Kitab', 
       home: MyHomePage(),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  final List<Transaction> _userTransaction = [
+    // Transaction(
+    //     id: "t1", title: "New Shoes", amount: 99.99, date: DateTime.now()),
+    // Transaction(
+    //     id: "t2", title: "New Bottel", amount: 20.99, date: DateTime.now()),
+  ];
+  List<Transaction> get _recentTransactions {
+    return _userTransaction.where((tx) {
+      return tx.date.isAfter(
+        DateTime.now().subtract(Duration(days: 7),),
+      );
+    }).toList() ;
+  }
+
+  void _addNewTransaction(String txTitle, double txAmount) {
+    final newTx = Transaction(
+      id: DateTime.now().toString(),
+      title: txTitle,
+      amount: txAmount,
+      date: DateTime.now(),
+    );
+
+    setState(() {
+      _userTransaction.add(newTx);
+    });
+  }
+
+  void _startAddNewTransaction(BuildContext ctx) {
+    showModalBottomSheet(
+      context: ctx,
+      builder: (bctx) {
+        return GestureDetector(
+          onTap: () => {},
+          behavior: HitTestBehavior.opaque,
+          child: NewTransaction(_addNewTransaction),);
+      },
+    );
+  }
+
   // String? titleInput;
   // String? amountInput;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "Hisab Kitab",
+        title: const Text(
+          "Hisab Kitab",style: TextStyle(fontSize: 25,color: Colors.white),
         ),
+        //titleTextStyle: TextStyle(color: Colors.white),
+        
+        
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () => {},
+            icon: Icon(Icons.add),color: Colors.white,
+            onPressed: () => _startAddNewTransaction(context),
           )
         ],
       ),
       body: SingleChildScrollView(
         child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Card(
-                child: Container(
-                  width: double.infinity,
-                  child: Text(
-                    "Chart",
-                    style: TextStyle(
-                      color: Colors.blue,
-                    ),
-                  ),
-                ),
-                elevation: 30,
-              ),
-              UserTranaction()
+            children: <Widget>[ 
+              Chart(_recentTransactions),
+              TransactionList(_userTransaction)
             ]),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: (() {}),
+        child: Icon(Icons.add,color: Colors.white,),
+        onPressed: ()=>_startAddNewTransaction(context),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
