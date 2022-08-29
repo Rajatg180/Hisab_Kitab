@@ -16,7 +16,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(primarySwatch: Colors.orange,
-      accentColor: Colors.orange ),
+      accentColor: Colors.orange ,
+      //buttonColor: Colors.red
+      ),
       title: 'Hisab Kitab', 
       home: MyHomePage(),
     );
@@ -45,12 +47,12 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList() ;
   }
 
-  void _addNewTransaction(String txTitle, double txAmount) {
+  void _addNewTransaction(String txTitle, double txAmount,DateTime chosenDate) {
     final newTx = Transaction(
       id: DateTime.now().toString(),
       title: txTitle,
       amount: txAmount,
-      date: DateTime.now(),
+      date: chosenDate,
     );
 
     setState(() {
