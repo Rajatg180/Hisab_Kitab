@@ -45,58 +45,62 @@ class _NewTransactionState extends State<NewTransaction> {
 
   @override
   Widget build(BuildContext context) {
-    return  Card(
-        elevation: 10,
-        child: Container(
-            padding: EdgeInsets.all(20),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: <Widget>[
-                  TextField(
-                    //onChanged: (value) => titleInput=value,
-                    controller: titleController,
-                    onSubmitted: (_) => _submitted(),
-                    decoration: InputDecoration(
-                      labelText: 'Title',
-                    ),
-                  ),
-                  TextField(
-                      //onChanged: (value) => amountInput=value,
-                      controller: amountController,
-                      keyboardType: TextInputType.number,
-                      //not using
+    return  SingleChildScrollView(
+      child: Card(
+          elevation: 10,
+          child: Container(
+              //padding: EdgeInsets.all(),
+              //to voide overlapping of keey board with input widget 
+              padding: EdgeInsets.only(left: 20,right: 20,top: 20,bottom: MediaQuery.of(context).viewInsets.bottom+10 ),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: <Widget>[
+                    TextField(
+                      //onChanged: (value) => titleInput=value,
+                      controller: titleController,
                       onSubmitted: (_) => _submitted(),
                       decoration: InputDecoration(
-                        labelText: 'Amount',
-                      )),
-                  Container(
-                    height: 70,
-                    child: Row(
-                      children: <Widget>[
-                        Expanded(child: Text(selectedDate==null?"No Date Chosen !":"Picked Date :"+DateFormat.yMd().format(selectedDate as DateTime))),
-                        FlatButton(textColor: Colors.orange,
-                          onPressed: 
-                        (() {
-                          _prsentDatePicker();
-                          
-                        }), child: Text("Chose Date",style: TextStyle(fontWeight: FontWeight.bold),)),
-                      ],
+                        labelText: 'Title',
+                      ),
                     ),
-                  ),
-                  
-                  RaisedButton(
-                    onPressed: () {
-                      //passing reference to the function
-                      _submitted();
-                    },
-                    
-                    
-                    color: Colors.orange,
-                    child: Text(
-                      "Add Transaction",style: TextStyle(color: Colors.white),
+                    TextField(
+                        //onChanged: (value) => amountInput=value,
+                        controller: amountController,
+                        keyboardType: TextInputType.number,
+                        //not using
+                        onSubmitted: (_) => _submitted(),
+                        decoration: InputDecoration(
+                          labelText: 'Amount',
+                        )),
+                    Container(
+                      height: 70,
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(child: Text(selectedDate==null?"No Date Chosen !":"Picked Date :"+DateFormat.yMd().format(selectedDate as DateTime))),
+                          FlatButton(textColor: Colors.orange,
+                            onPressed: 
+                          (() {
+                            _prsentDatePicker();
+                            
+                          }), child: Text("Chose Date",style: TextStyle(fontWeight: FontWeight.bold),)),
+                        ],
+                      ),
                     ),
                     
-                  )
-                ])));
+                    RaisedButton(
+                      onPressed: () {
+                        //passing reference to the function
+                        _submitted();
+                      },
+                      
+                      
+                      color: Colors.orange,
+                      child: Text(
+                        "Add Transaction",style: TextStyle(color: Colors.white),
+                      ),
+                      
+                    )
+                  ]))),
+    );
   }
 }

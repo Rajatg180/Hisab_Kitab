@@ -9,41 +9,45 @@ class TransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        height: 600,
-        child: transacations.isEmpty
-            ? Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    "No transaction added yet !",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.brown,
-                        fontSize: 20),
-                  ),
-                  //SizedBox() is used to add spacing betwen two widget
-                  //SizedBox(height: 20,),
-                  Image.asset('assets/images.jpg')
-                ],
-              )
-            : ListView.builder(
-                //create widget
-                itemCount: transacations.length,
-                itemBuilder: (context, index) {
-                  return Container(
-                    margin: EdgeInsets.symmetric(horizontal: 10),
-                    child: Card(
-                      elevation: 10,
-                      child: Row(
-                        children: <Widget>[
+    return transacations.isEmpty
+        ? LayoutBuilder(
+            builder: (context, constraints) => Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  "No transaction added yet !",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.brown,
+                      fontSize: 20),
+                ),
+                //SizedBox() is used to add spacing betwen two widget
+                //SizedBox(height: 20,),
+                Container(
+                    height: constraints.minHeight * 0.6,
+                    child: Image.asset('assets/images.jpg'))
+              ],
+            ),
+          )
+        : ListView.builder(
+            //create widget
+            itemCount: transacations.length,
+            itemBuilder: (context, index) {
+              return Container(
+                margin: EdgeInsets.symmetric(horizontal: 10),
+                child: Card(
+                  elevation: 10,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Row(
+                        children: [
                           Container(
                             padding: EdgeInsets.all(10),
                             margin: EdgeInsets.all(20),
                             decoration: BoxDecoration(
                               //shape: BoxShape.circle,
                               border: Border.all(
-                                
                                 //color: Theme.of(context).primaryColor,
                                 width: 2,
                               ),
@@ -78,13 +82,20 @@ class TransactionList extends StatelessWidget {
                                   style: TextStyle(fontSize: 13),
                                 )
                               ]),
-                            
                         ],
                       ),
-                    ),
-                  );
-                },
-                //return no of iteams
-              ));
+                      FlatButton.icon(
+                        icon: Icon(Icons.delete),
+                        label: Text("Delete"),
+                        textColor: Colors.red,
+                        onPressed: () {},
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+            //return no of iteams
+          );
   }
 }
